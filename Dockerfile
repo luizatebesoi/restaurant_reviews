@@ -15,11 +15,12 @@ RUN pip install -r requirements.txt
 # Application config
 COPY . .
 ARG ENV_SETTINGS=prod
-RUN cp /srv/tebesoi/restaurants/unifiedr/settings_$ENV_SETTINGS.py /srv/tebesoi/restaurants/unifiedr/settings.py
+RUN cp /srv/tebesoi/restaurants/restaurant_reviews/settings_$ENV_SETTINGS.py /srv/tebesoi/restaurants/restaurant_reviews/settings.py
 
 # Change DB host
 ARG DB_HOST=postgres.restaurants
 RUN find ./scripts/ -type f -exec sed -i -r "s/localhost/${DB_HOST}/g" {} \;
+RUN find ./scripts/ -type f -exec sed -i -r "s/postgrespass/reviews/g" {} \;
 
 EXPOSE 80
 ENTRYPOINT ["docker-entrypoint.sh"]
