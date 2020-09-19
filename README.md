@@ -17,9 +17,10 @@
 ```bash
 pip install -r requirements.txt
 ```
-- Start application with python manage.py runserver
-### Other tools
-- Download and install [Atom](https://atom.io/)
+- Start application with 
+```bash
+python manage.py runserver
+```
 
 ### Debug
 #### Test db connection
@@ -29,14 +30,11 @@ psql -h postgres.restaurants -U postgres -d restaurants
 ```
 #### Restore DB dump
 ```bash
-pg_restore -U postgres -d restaurants -1 /var/lib/postgresql/data/unified-restaurants
+pg_restore -U postgres -d restaurants -1 /var/lib/postgresql/data/<db_dump_file>
 ```
 
 #### Test app image
 ```bash
-docker image build -t restaurants-temp .
-docker run --rm -it --entrypoint /bin/bash --name temp-restaurants restaurants-temp
+docker image build -t restaurant-reviews .
+docker run --rm -it --entrypoint /bin/bash --name restaurant-reviews restaurant-reviews
 ```
-
-## ToDo
-- use relative path for image_titles of Data_processing_functions_final.py (example download from images_download.py)

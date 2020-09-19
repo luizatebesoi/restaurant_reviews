@@ -1,14 +1,13 @@
 .dockerignore
-.git
 .gitignore
-.idea
 !.gitkeep
 Dockerfile
 Jenkinsfile
 README.md
 # Folders to be ignored
-#/media/dg
-/media/restaurants
+.git/
+.idea/
+media/
 
 # Artifacts that will be built during image creation.
 # This should contain all files created during build
