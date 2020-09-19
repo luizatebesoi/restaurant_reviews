@@ -959,7 +959,7 @@ def new_images_downloader(df, existent_csv):
 
 def delete_reviews_table():
     conn = psg.connect(
-        "dbname = 'restaurants' user = 'postgres' password = 'postgres' host = 'localhost' port = '5432'")
+        "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
     c.execute("DELETE FROM restaurants_review2")
     conn.commit()
@@ -968,7 +968,7 @@ def delete_reviews_table():
 
 def delete_restaurants_table():
     conn = psg.connect(
-        "dbname = 'restaurants' user = 'postgres' password = 'postgres' host = 'localhost' port = '5432'")
+        "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
     c.execute("DELETE FROM restaurants_restaurant2")
     conn.commit()
@@ -984,7 +984,7 @@ def write_unique_id(restaurants):
 
 def bulk_insert_into_restaurants_table(data):
     conn = psg.connect(
-        "dbname = 'restaurants' user = 'postgres' password = 'postgres' host = 'localhost' port = '5432'")
+        "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
     c.executemany(
         "INSERT INTO restaurants_restaurant2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
@@ -995,7 +995,7 @@ def bulk_insert_into_restaurants_table(data):
 
 def bulk_insert_into_reviews_table(data):
     conn = psg.connect(
-        "dbname = 'restaurants' user = 'postgres' password = 'postgres' host = 'localhost' port = '5432'")
+        "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
     c.executemany("INSERT INTO restaurants_review2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s);",
                   tuple(data))
