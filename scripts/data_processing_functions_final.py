@@ -961,7 +961,7 @@ def delete_reviews_table():
     conn = psg.connect(
         "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
-    c.execute("DELETE FROM restaurants_review2")
+    c.execute("DELETE FROM restaurants_review")
     conn.commit()
     conn.close()
 
@@ -970,7 +970,7 @@ def delete_restaurants_table():
     conn = psg.connect(
         "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
-    c.execute("DELETE FROM restaurants_restaurant2")
+    c.execute("DELETE FROM restaurants_restaurant")
     conn.commit()
     conn.close()
 
@@ -987,7 +987,7 @@ def bulk_insert_into_restaurants_table(data):
         "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
     c.executemany(
-        "INSERT INTO restaurants_restaurant2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+        "INSERT INTO restaurants_restaurant VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
         tuple(data))
     conn.commit()
     conn.close()
@@ -997,7 +997,7 @@ def bulk_insert_into_reviews_table(data):
     conn = psg.connect(
         "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
-    c.executemany("INSERT INTO restaurants_review2 VALUES (%s, %s, %s, %s, %s, %s, %s, %s);",
+    c.executemany("INSERT INTO restaurants_review VALUES (%s, %s, %s, %s, %s, %s, %s, %s);",
                   tuple(data))
     conn.commit()
     conn.close()
