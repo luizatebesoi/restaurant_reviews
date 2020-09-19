@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load daguerre %}
+{% block content %}
+{% load static %}
+
+
+<div class="jumbotron jumbotron-fluid" style = "min-height: 800px; background: url({% static 'images/v7va-hero.jpg' %}) no-repeat center center fixed; background-attachment: scroll; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+  <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h2 style = "color: white; text-align: center;">Bine ai venit la agregatorul de restaurante!</h2>
+    <h4 style = "color: white; text-align: center;">Am adunat toate restaurantele, recenziile si costurile de livrare de pe FoodPanda si Tazz. Acum poti vedea toate review-urile la un loc si poti compara costul livrarii de pe ambele platforme.</h4>
+
+    <br>
+
+    <p style = "font-size: 20px; color: white; text-align: center;">Alege orasul tau:</p>
+    <div class="search" style = "text-align: center;">
+      <form class="form" action="{% url 'restaurants' %}">
+          {% for value in myFilter.form %}
+          <div class="form-group mb-2">
+              {{ value }}
+          </div>
+          {% endfor %}
+          <div class="form-group mb-2">
+            <button type="submit" class="btn btn-primary btn-sm">Cauta</button>
+          </div>
+
+      </form>
+    </div>
+
+</div>
+</div>
+
+
+{% endblock %}

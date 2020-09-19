@@ -1,0 +1,86 @@
+.my-col{
+  height:390px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.inner-first-row{
+  height: 280px;
+}
+
+
+.inner-second-row{
+  height: 30px;
+}
+
+.inner-third-row{
+  height: 15px;
+  margin-bottom: 12px;
+}
+
+.inner-fourth_row{
+  height: 30 px;
+}
+
+.btn{
+  min-width:120px;
+  margin-bottom: 2.5px;
+  background-color: #8eb990;
+  border: #8eb990 solid;
+}
+
+#reviews-number{
+  color: grey;
+}
+
+input{
+  width: 250px;
+  border-radius: 4px;
+  border: 1px solid grey;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+select {
+  width: 250px;
+  border-radius: 4px;
+  border: 1px solid grey;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#main_container{
+  margin-top: 0px;
+}
+
+#fp-image{
+  width:120px;
+  height:120px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.order_on{
+  width:500px;
+}
+
+.jumbotron-fluid{
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+}
+
+.scooter{
+  width: 20px;
+  height: 20px;
+}
+
+.tazzimg{
+  width: 30px;
+  height: 30px;
+}
+
+.fpimg{
+  width: 30px;
+  height: 30px;
+}

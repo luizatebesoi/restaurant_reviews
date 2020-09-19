@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load daguerre %}
+{% block content %}
+{% load static %}
+
+<div class="container" style = "margin-top: 30px; margin-bottom: 10px;">
+  <form class="form-inline" method="get">
+
+      {% for value in myFilter.form %}
+      <div class="form-group mb-2">
+        <label for="{{ value.id_for_label }}">
+          {{ value.label }}
+        </label>
+          {{ value }}
+      </div>
+      {% endfor %}
+      <div class="form-group mb-2">
+        <button type="submit" class="btn btn-primary btn-sm">Cauta</button>
+      </div>
+
+  </form>
+</div>
+<div class="container" style = "margin-bootom: 0px;">
+    <p align = "left" style="font-size:30px; color:grey;">Am gasit {{ length | intcomma }} restaurant{{ length | pluralize:"e" }} in {{ city }}</p>
+</div>
+
+
+<div class="container" id = "main_container" style = "margin-top: 0px;">
+  <div class="row my-row">
+    {% for restaurant in restaurants %}
+    <div class="col col-lg-4 col-md-6 col-sm-6 col-12 d-flex flex-column justify-content-center my-col">
+      <div class="row align-items-center inner-first-row">
+        <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+          <a href="{% url 'detail' restaurant.id %}">
+            <figure class="text-center">
+              {% if restaurant.img %}
+              <img class="img-thumbnail" src="{% adjust restaurant.img 'fill' width=500 height=300 %}" onerror="this.src = 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg';">
+              {% else %}
+              <img class="img-thumbnail" src="{% adjust 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg' 'fill' width=500 height=300 %}" onerror="this.src = 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg';">
+              {% endif %}
+            </figure>
+          </a>
+        </div>
+      </div>
+      <div class="row align-items-start inner-second-row">
+        <div class="col col-lg-8 col-md-8 col-sm-8 col-8">
+          <a href="{% url 'detail' restaurant.id %}">
+            <figcaption>
+              <p style="font-size:17px; color:black;"><b>{{ restaurant.name|truncatechars:20 }}</b></p>
+            </figcaption>
+          </a>
+        </div>
+
+          <div class="col col-lg-4 col-md-4 col-sm-4 col-4">
+            {% if restaurant.reviews_number != 0 %}
+            <p align="right" style="font-size:14px; color:black;"><em><b>{{ restaurant.restaurant_rating }}/5 ({{ restaurant.reviews_number | intcomma }})</b></em></p>
+            {% endif %}
+          </div>
+
+      </div>
+
+      <div class="row align-items-end inner-third-row">
+        <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+          <p style="font-size:14px;">{{ restaurant.categories|truncatechars:30}}</p>
+        </div>
+
+      </div>
+      <div class="row inner-fourth-row">
+        {% if restaurant.fp_delivery_fee and restaurant.tazz_delivery_fee %}
+        <!-- <div class="col col-lg-2 col-md-2 col-sm-2 col-2 h-30">
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"></p>
+        </div> -->
+        <div class="col col-lg-6 col-md-6 col-sm-6 col-6" style = "text-align: left;">
+          <div style= "text-align: left;"> <img src="{% static 'images/fp.png' %}" alt="" class="fpimg"> <img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter">:  {{restaurant.fp_delivery_fee}}</div>
+        </div>
+        <div class="col col-lg-6 col-md-6 col-sm-6 col-6" style = "text-align: left;">
+          <p><img src="{% static 'images/tazz.png' %}" alt="" class="tazzimg"> <img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter">:  {{restaurant.tazz_delivery_fee}}</p>
+        </div>
+
+        {% elif restaurant.fp_delivery_fee %}
+        <!-- <div class="col col-lg-2 col-md-2 col-sm-2 col-2 h-30">
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"> :</p>
+        </div> -->
+        <div class="col col-lg-10 col-md-10 col-sm-10 col-10">
+          <p><img src="{% static 'images/fp.png' %}" alt="" class="fpimg"> <img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter">:  {{restaurant.fp_delivery_fee}}</p>
+        </div>
+        {% elif restaurant.tazz_delivery_fee %}
+        <!-- <div class="col col-lg-2 col-md-2 col-sm-2 col-2 h-30">
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"> :</p>
+        </div> -->
+        <div class="col col-lg-10 col-md-10 col-sm-10 col-10">
+          <p><img src="{% static 'images/tazz.png' %}" alt="" class="tazzimg"> <img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter">:  {{restaurant.tazz_delivery_fee}}</p>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    {% endfor %}
+  </div>
+
+
+  </div>
+
+
+
+{% endblock %}

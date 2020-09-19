@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+{% load daguerre %}
+{% load static %}
+
+{% block content %}
+
+<div class="container" style = "margin-top: 40px;">
+  <div class="row display-inline-block">
+    <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+      <h3>{{ restaurant.name }}</h3>
+    </div>
+    <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+      {% if restaurant.reviews_number > 0 %}
+      <p align = "right" style="font-size:20px;"><em><b>{{ restaurant.restaurant_rating }}/5 ({{ restaurant.reviews_number | intcomma }})</b></em></p>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <div class="jumbotron" style="margin-bottom: 5px; min-height: 300px; background: url({{ restaurant.img.url }}) no-repeat center center fixed; background-attachment: scroll; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+  </div>
+  <div class="row display-inline-block">
+    <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+      <p><em><b>Adresa: </b></em>{{ restaurant.address }}<br><em><b>Oras: </b></em>{{ restaurant.city }}</p>
+    </div>
+    <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+      <p align="right"><em><b>Categorii: </b></em>{{ restaurant.categories|truncatechars:120 }}</p>
+    </div>
+  </div>
+  <div class="container order_on">
+    <div class="jumbotron" style = "background-color: white; text-align:center; margin-bottom: 0px;">
+      <h3 style = "text-align:center;">Plaseaza o comanda pe: </h3>
+      <br>
+      <div class="row">
+        {% if restaurant.fp_page_href and restaurant.tazz_page_href %}
+        <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+          <a href='{{ restaurant.fp_page_href }}' target="_blank"><img id="fp-image" src="{% static 'images/fp.png' %}"></a>
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"> <b>{{ restaurant.fp_delivery_fee }}</b></p>
+          <p><i>Comanda minima: </i><br>
+             {{ restaurant.fp_minimum_order }}</p>
+        </div>
+
+        <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+          <a href='{{ restaurant.tazz_page_href }}' target="_blank"><img id="fp-image" src="{% static 'images/tazz.png' %}"></a>
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"> <b>{{ restaurant.tazz_delivery_fee }}</b></p>
+          <p><i>Comanda minima: </i><br>
+            {{ restaurant.tazz_minimum_order }}</p>
+        </div>
+
+        {% elif restaurant.fp_page_href%}
+        <div class="col col-sm-12 col-12 col-md-12 col-lg-12" style = "text-align:center;">
+          <a href='{{ restaurant.fp_page_href }}' target="_blank"><img id="fp-image" src="{% static 'images/fp.png' %}"></a>
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"> <b>{{ restaurant.fp_delivery_fee }}</b></p>
+          <p><i>Comanda minima: </i><br>
+            {{ restaurant.fp_minimum_order }}</p>
+        </div>
+
+        {% elif restaurant.tazz_page_href%}
+        <div class="col col-sm-12 col-12 col-md-12 col-lg-12" style = "text-align:center;">
+          <a href='{{ restaurant.tazz_page_href }}' target="_blank"><img id="fp-image" src="{% static 'images/tazz.png' %}"></a>
+          <p><img src="{% static 'images/scooter1.png' %}" alt="" class = "scooter"> <b>{{ restaurant.tazz_delivery_fee }}</b></p>
+          <p><i>Comanda minima: </i><br>
+            {{ restaurant.tazz_minimum_order }}</p>
+        </div>
+        {% endif %}
+
+
+
+      </div>
+    </div>
+
+  </div>
+  <div class="container" style = "margin-top: 0px;">
+    <div class="jumbotron" style="background-color: #f5f2f0;">
+      <h3>Review-uri</h3>
+      <form class="form-inline" method="get">
+          {% for value in myFilter.form %}
+          <div class="form-group mb-2">
+            <label for="{{ value.id_for_label }}">
+              {{ value.label }}
+            </label>
+              {{ value }}
+          </div>
+          {% endfor %}
+          <div class="form-group mb-2">
+            <button type="submit" class="btn btn-primary btn-sm">Cauta</button>
+          </div>
+      </form>
+      <br>
+      <p style = "font-size: 22px;" id = "reviews-number">Am gasit {{length|intcomma}} Review{{length|pluralize:"-uri"}} scris{{ length|pluralize:"e" }}</p>
+      <hr>
+
+      {% for review in reviews %}
+      <div class="row">
+        <div class="col col-sm-9 col-9 col-md-9 col-lg-9">
+          <p>{{ review.review }}</p>
+        </div>
+        <div class="col col-sm-3 col-3 col-md-3 col-lg-3">
+          <p align = "right"><b>Rating: {{ review.review_rating}}/5</b></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+          <p align = "left"><i>Sursa: </i>{{ review.source }}</p>
+        </div>
+        <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
+          <p align = "right">{{ review.review_date }}</p>
+        </div>
+
+      </div>
+      <hr>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
