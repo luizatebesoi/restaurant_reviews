@@ -39,4 +39,12 @@ docker image build -t restaurant-reviews .
 docker run --rm -it --entrypoint /bin/bash --name restaurant-reviews restaurant-reviews
 ```
 
-### Crons
+### Populate db data
+```bash
+python initial_download.py
+```
+
+### Cron daily
+```bash
+python data_update.py
+```
