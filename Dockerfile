@@ -22,7 +22,8 @@ ARG DB_HOST=postgres.restaurants
 RUN find ./scripts/ -type f -exec sed -i -r "s/localhost/${DB_HOST}/g" {} \;
 RUN find ./scripts/ -type f -exec sed -i -r "s/postgrespass/reviews/g" {} \;
 
-RUN cp /srv/tebesoi/restaurants/restaurant_reviews/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /srv/tebesoi/restaurants/docker-entrypoint.sh
+RUN cp /srv/tebesoi/restaurants/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 80
 ENTRYPOINT ["docker-entrypoint.sh"]
