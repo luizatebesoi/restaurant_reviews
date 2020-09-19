@@ -2,7 +2,7 @@ node("master") {
   timestamps {
     git branch: 'master',
         credentialsId: 'd7fe903f-1cdc-49e1-8031-a8ff56173796',
-        url: 'git@github.com:luizatebesoi/restaurants-unified.git'
+        url: 'git@github.com:luizatebesoi/restaurant-reviews.git'
     def GIT_TAG = gitTagName()
     properties([
         buildDiscarder(logRotator(daysToKeepStr: '14', numToKeepStr: '3')),
