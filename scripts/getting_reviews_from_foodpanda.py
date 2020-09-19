@@ -2,10 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 from csv import DictWriter
 
-    
-def get_reviews_info(link, search_link, cities):   
+
+def get_reviews_info(link, search_link, cities):
     reviews_info = []
-    for city in cities:  
+    for city in cities:
         response = requests.get(search_link+city[1])
         response.encoding = "utf-8"
         soup_cities = BeautifulSoup(response.text, "lxml")
@@ -22,9 +22,9 @@ def get_reviews_info(link, search_link, cities):
             restaurant_categories = []
             categories = restaurant.find(class_ = "vendor-characteristic").find_all("span")
             for item in categories:
-                restaurant_categories.append(item.get_text().strip()) 
+                restaurant_categories.append(item.get_text().strip())
             categories_str = ', '.join(restaurant_categories)
-            
+
             restaurant_page_href = restaurant["href"]
             restaurant_info = requests.get(link + restaurant_page_href + "#restaurant-info")
             restaurant_info.encoding = "utf-8"
@@ -61,9 +61,9 @@ def get_reviews_info(link, search_link, cities):
                     else:
                         review_rating = None
                     review_date = review.find(class_ = "review-date dtreviewed").get_text().strip()
-                    reviews_info.append({"name" : name, 
-                                         "review" : review_descr, 
-                                         "review_date" : review_date, 
+                    reviews_info.append({"name" : name,
+                                         "review" : review_descr,
+                                         "review_date" : review_date,
                                          "review_rating" : review_rating,
                                          "restaurant_rating" : restaurant_rating,
                                          "reviews_no" : reviews_no,
@@ -76,13 +76,13 @@ def get_reviews_info(link, search_link, cities):
                                          "fp_delivery_fee": delivery_fee,
                                          "fp_restaurant_page_href": restaurant_page_href,
                                          "rest_image": rest_image
-                                         
-                                         })         
+
+                                         })
 
                     print(name, address, review_author, categories_str, minimum_order, delivery_fee, rest_image, city[0], reviews_no, restaurant_rating)
             else:
-                reviews_info.append({"name" : name, 
-                                     "review" : None, 
+                reviews_info.append({"name" : name,
+                                     "review" : None,
                                      "review_date" : None,
                                      "review_rating" : None,
                                      "restaurant_rating" : restaurant_rating,
@@ -96,20 +96,20 @@ def get_reviews_info(link, search_link, cities):
                                      "fp_delivery_fee": delivery_fee,
                                      "fp_restaurant_page_href": restaurant_page_href,
                                      "rest_image": rest_image
-                                         
-                                         }) 
-                
+
+                                         })
+
                 print(name, address, categories_str, minimum_order, delivery_fee, rest_image, city[0], reviews_no, restaurant_rating)
     return reviews_info
 
 
 def write_restaurants_info_to_csv(reviews_info):
-    with open("C:/Users/Luiza/git/restaurants-unified/media/csvs/foodpanda.csv", "w", encoding = "utf-8", newline = "") as file:
-        headers = ["name", 
-                   "review", 
-                   "review_date", 
-                   "review_rating", 
-                   "restaurant_rating", 
+    with open("C:/Users/Luiza/git/restaurant_reviews/media/csvs/foodpanda.csv", "w", encoding = "utf-8", newline = "") as file:
+        headers = ["name",
+                   "review",
+                   "review_date",
+                   "review_rating",
+                   "restaurant_rating",
                    "reviews_no",
                    "city",
                    "address",
@@ -124,14 +124,14 @@ def write_restaurants_info_to_csv(reviews_info):
         csv_writer.writeheader()
         for review in reviews_info:
             csv_writer.writerow(review)
-            
-            
+
+
 base_search_url = "https://www.foodpanda.ro/restaurants/"
 base_url = "https://www.foodpanda.ro"
 
 
-cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=restaurants"), 
-          ("cluj-napoca", "new?lat=46.77028199999999&lng=23.588339&vertical=restaurants"), 
+cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=restaurants"),
+          ("cluj-napoca", "new?lat=46.77028199999999&lng=23.588339&vertical=restaurants"),
           ("timisoara", "new?lat=45.7540172&lng=21.225833&vertical=restaurants"),
           ("iasi", "new?lat=47.164872&lng=27.586652&vertical=restaurants"),
           ("brasov", "new?lat=45.6579062&lng=25.6010367&vertical=restaurants"),
@@ -144,8 +144,8 @@ cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=resta
           ("craiova", "restaurants/new?lat=44.3193555&lng=23.7942362&vertical=restaurants"),
           ("ploiesti", "new?lat=44.9435593&lng=26.0204985&vertical=restaurants"),
           ("baia-mare", "new?lat=47.659321&lng=23.5818455&vertical=restaurants"),
-          ("buzau", "new?lat=45.1370346&lng=26.8160698&vertical=restaurants"), 
-          ("braila", "new?lat=45.2730617&lng=27.9736206&vertical=restaurants"), 
+          ("buzau", "new?lat=45.1370346&lng=26.8160698&vertical=restaurants"),
+          ("braila", "new?lat=45.2730617&lng=27.9736206&vertical=restaurants"),
           ("bacau", "new?lat=46.5667907&lng=26.9147742&vertical=restaurants"),
           ("targu-mures", "new?lat=46.5384969&lng=24.5513527&vertical=restaurants"),
           ("mioveni", "new?lat=44.95731199999999&lng=24.947192&vertical=restaurants"),
@@ -163,5 +163,3 @@ cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=resta
           ("focsani", "new?lat=45.6964529&lng=27.184108&vertical=restaurants"),
           ("sebes", "new?lat=45.9594602&lng=23.5664861&vertical=restaurants")
           )
-
-

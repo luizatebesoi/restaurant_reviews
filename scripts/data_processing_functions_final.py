@@ -936,7 +936,7 @@ def final_restaurant_processing(csv1, csv2, *args):
 
 
 def write_restaurants_unique_id_csv(restaurants):
-    with open("C:/Users/Luiza/git/restaurants-unified/media/csvs/final_restaurants_unique_id.csv", "w", encoding="utf-8", newline="") as file:
+    with open("C:/Users/Luiza/git/restaurant_reviews/media/csvs/final_restaurants_unique_id.csv", "w", encoding="utf-8", newline="") as file:
         headers = ["unique_id"]
         csv_writer = DictWriter(file, fieldnames=headers)
         csv_writer.writeheader()
