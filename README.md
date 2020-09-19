@@ -38,3 +38,5 @@ pg_restore -U postgres -d restaurants -1 /var/lib/postgresql/data/<db_dump_file>
 docker image build -t restaurant-reviews .
 docker run --rm -it --entrypoint /bin/bash --name restaurant-reviews restaurant-reviews
 ```
+
+### Crons
