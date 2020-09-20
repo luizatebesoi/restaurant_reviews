@@ -1,3 +1,5 @@
+import os
+from os.path import dirname
 import requests
 from bs4 import BeautifulSoup
 from csv import DictWriter
@@ -104,7 +106,7 @@ def get_reviews_info(link, search_link, cities):
 
 
 def write_restaurants_info_to_csv(reviews_info):
-    with open("C:/Users/Luiza/git/restaurant_reviews/media/csvs/foodpanda.csv", "w", encoding = "utf-8", newline = "") as file:
+    with open(os.path.join(dirname(dirname(__file__)), "media/csv/foodpanda.csv"), "w", encoding = "utf-8", newline = "") as file:
         headers = ["name",
                    "review",
                    "review_date",

@@ -1,7 +1,8 @@
+import os
+from os.path import dirname
 import requests
 from bs4 import BeautifulSoup
 from csv import DictWriter
-
 
 
 def get_reviews_info(link, cities, category):
@@ -10,62 +11,63 @@ def get_reviews_info(link, cities, category):
         response = requests.get(link + city + "/categorie/" + category)
         response.encoding = "utf-8"
         soup = BeautifulSoup(response.text, "html.parser")
-        restaurants = soup.find_all(class_ = "restaurant js-add-coords")
+        restaurants = soup.find_all(class_="restaurant js-add-coords")
         for restaurant in restaurants:
-            name = restaurant.find(class_ = "resto_name").find("h2").get_text().strip()
-            reviews_no = restaurant.find(class_ = "rating_box").find("span").find("span").get_text().strip()
-            restaurant_categories = restaurant.find(class_ = "resto_specific").find("span").get_text().strip()
+            name = restaurant.find(class_="resto_name").find("h2").get_text().strip()
+            reviews_no = restaurant.find(class_="rating_box").find("span").find("span").get_text().strip()
+            restaurant_categories = restaurant.find(class_="resto_specific").find("span").get_text().strip()
             if restaurant.find(class_="order_min").find(class_="price"):
                 minimum_order = restaurant.find(class_="order_min").find(class_="price").get_text().strip()
             else:
                 minimum_order = restaurant.find(class_="order_min").find("b").get_text().strip()
             delivery_fee = restaurant.find(class_="delivery_price").get_text().strip()
-            restaurant_rating = restaurant.find(class_ = "rating_box").find("b").get_text().strip()
+            restaurant_rating = restaurant.find(class_="rating_box").find("b").get_text().strip()
             restaurant_page_href = restaurant["href"]
             rest_image = restaurant.find(class_="resto_pic").find("img")["src"]
 
             restaurant_page_response = requests.get(restaurant_page_href + "/#reviews")
             restaurant_page_response.encoding = "utf-8"
             soup = BeautifulSoup(restaurant_page_response.text, "html.parser")
-            if soup.find(class_ = "restaurant_info"):
-                address = soup.find(class_ = "restaurant_info").find("span").get_text().strip()
+            if soup.find(class_="restaurant_info"):
+                address = soup.find(class_="restaurant_info").find("span").get_text().strip()
             else:
                 address = None
-            all_reviews = soup.find_all(class_ = "review_box")
+            all_reviews = soup.find_all(class_="review_box")
             if len(all_reviews) > 0:
                 for review in all_reviews:
                     review_descr = review.find("p").get_text().strip()
-                    review_author = review.find(class_ = "review_author").get_text().split(" - ")[0].strip()
-                    review_rating = review.find(class_ = "review_stars").find("span").get_text() .strip()
-                    review_date = review.find(class_ = "review_author").get_text().split(" ")[-1].strip()
-                    reviews_info.append({"name" : name,
-                                         "review" : review_descr,
-                                         "review_date" : review_date,
-                                         "review_rating" : review_rating,
-                                         "restaurant_rating" : restaurant_rating,
-                                         "reviews_no" : reviews_no,
-                                         "city" : city,
-                                         "address" : address,
-                                         "author" : review_author,
-                                         "categories" : restaurant_categories,
+                    review_author = review.find(class_="review_author").get_text().split(" - ")[0].strip()
+                    review_rating = review.find(class_="review_stars").find("span").get_text().strip()
+                    review_date = review.find(class_="review_author").get_text().split(" ")[-1].strip()
+                    reviews_info.append({"name": name,
+                                         "review": review_descr,
+                                         "review_date": review_date,
+                                         "review_rating": review_rating,
+                                         "restaurant_rating": restaurant_rating,
+                                         "reviews_no": reviews_no,
+                                         "city": city,
+                                         "address": address,
+                                         "author": review_author,
+                                         "categories": restaurant_categories,
                                          "source": "tazz",
                                          "tazz_minimum_order": minimum_order,
                                          "tazz_delivery_fee": delivery_fee,
                                          "tazz_restaurant_page_href": restaurant_page_href,
                                          "rest_image": rest_image
                                          })
-                    print(name, address, review_author, restaurant_categories, minimum_order, delivery_fee, rest_image, city)
+                    print(name, address, review_author, restaurant_categories, minimum_order, delivery_fee, rest_image,
+                          city)
             else:
-                reviews_info.append({"name" : name,
-                                     "review" : None,
-                                     "review_date" : None,
-                                     "review_rating" : None,
-                                     "restaurant_rating" : restaurant_rating,
-                                     "reviews_no" : reviews_no,
-                                     "city" : city,
-                                     "address" : address,
-                                     "author" : None,
-                                     "categories" : restaurant_categories,
+                reviews_info.append({"name": name,
+                                     "review": None,
+                                     "review_date": None,
+                                     "review_rating": None,
+                                     "restaurant_rating": restaurant_rating,
+                                     "reviews_no": reviews_no,
+                                     "city": city,
+                                     "address": address,
+                                     "author": None,
+                                     "categories": restaurant_categories,
                                      "source": "foodpanda",
                                      "tazz_minimum_order": minimum_order,
                                      "tazz_delivery_fee": delivery_fee,
@@ -76,9 +78,9 @@ def get_reviews_info(link, cities, category):
     return reviews_info
 
 
-
 def write_restaurants_info_to_csv(reviews_info):
-    with open("C:/Users/Luiza/git/restaurant_reviews/media/csvs/tazz.csv", "w", encoding = "utf-8", newline = "") as file:
+    with open(os.path.join(dirname(dirname(__file__)), "media/csv/tazz.csv"), "w", encoding="utf-8",
+              newline="") as file:
         headers = ["name",
                    "review",
                    "review_date",
@@ -94,7 +96,7 @@ def write_restaurants_info_to_csv(reviews_info):
                    "tazz_delivery_fee",
                    "tazz_restaurant_page_href",
                    "rest_image"]
-        csv_writer = DictWriter(file, fieldnames= headers)
+        csv_writer = DictWriter(file, fieldnames=headers)
         csv_writer.writeheader()
         for review in reviews_info:
             csv_writer.writerow(review)
@@ -107,6 +109,6 @@ cities = ("bucuresti", "cluj-napoca", "timisoara", "iasi", "brasov",
           "deva", "alba-iulia", "resita", "botosani", "roman", "targu-mures")
 category = "restaurant"
 
-#if __name__ == '__main__':
+# if __name__ == '__main__':
 #    reviews_info = get_reviews_info(url, cities, category)
 #    write_restaurants_info_to_csv(reviews_info)

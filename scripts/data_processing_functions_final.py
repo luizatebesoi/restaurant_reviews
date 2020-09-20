@@ -47,7 +47,6 @@ def image_titles(links):
     return results
 
 
-
 def capitalize_city(x):
     if "-" in x:
         splitted_x = x.split("-")
@@ -936,7 +935,8 @@ def final_restaurant_processing(csv1, csv2, *args):
 
 
 def write_restaurants_unique_id_csv(restaurants):
-    with open("C:/Users/Luiza/git/restaurant_reviews/media/csvs/final_restaurants_unique_id.csv", "w", encoding="utf-8", newline="") as file:
+    with open(os.path.join(dirname(dirname(__file__)), "media/csv/final_restaurants_unique_id.csv"), "w",
+              encoding="utf-8", newline="") as file:
         headers = ["unique_id"]
         csv_writer = DictWriter(file, fieldnames=headers)
         csv_writer.writeheader()
