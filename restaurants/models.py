@@ -24,6 +24,8 @@ class Restaurant(models.Model):
     reviews_total = models.FloatField(blank=True)
     img = models.ImageField(upload_to='restaurants/images', null=True, max_length=1000)
 
+
+#ImageField(upload_to='restaurants/images', null=True, max_length=1000)
     def __str__(self):
         return self.name
 
