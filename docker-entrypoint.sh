@@ -1,9 +1,9 @@
 #!/bin/bash
-cd /srv/tebesoi/restaurants/
+cd /srv/tebesoi/restaurant_reviews/
 
 # Create media directories if needed
-media_csv_path="/srv/tebesoi/restaurants/media/csv"
-media_images_path="/srv/tebesoi/restaurants/media/restaurants/images"
+media_csv_path="/srv/tebesoi/restaurant_reviews/media/csv"
+media_images_path="/srv/tebesoi/restaurant_reviews/media/restaurants/images"
 if [ ! -d $media_csv_path ]
 then
   mkdir -p $media_csv_path
