@@ -35,9 +35,9 @@
           <a href="{% url 'detail' restaurant.id %}">
             <figure class="text-center">
               {% if restaurant.img %}
-              <img class="img-thumbnail" src="{% adjust restaurant.img 'fill' width=500 height=300 %}" onerror="this.src = 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg';" />
+              <img class="img-thumbnail" src="{% adjust restaurant.img 'fill' width=500 height=300 %}" onerror="this.src = 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg';">
               {% else %}
-              <img class="img-thumbnail" src="{% adjust 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg' 'fill' width=500 height=300 %}" onerror="this.src = 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg';" />
+              <img class="img-thumbnail" src="{% adjust 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg' 'fill' width=500 height=300 %}" onerror="this.src = 'https://icon-library.com/images/photo-placeholder-icon/photo-placeholder-icon-7.jpg';">
               {% endif %}
             </figure>
           </a>
