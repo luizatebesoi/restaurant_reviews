@@ -12,10 +12,11 @@ def image_titles1(links):
         if pd.notna(link):
             filename = link.split("/")[-1]
             file = os.path.join(os.path.join(dirname(dirname(__file__)), "media/restaurants/images/"), filename)
-            file = file.replace("\\","/")
+            file = file.replace("\\", "/")
             results.append(file)
         else:
             results.append(None)
-    print(file)
+    print(results)
 
-image_titles1(["https://images.deliveryhero.io/image/fd-ro/LH/v3gk-listing.jpg"])
+
+image_titles1(["https://images.deliveryhero.io/image/fd-ro/LH/v0ds-listing.jpg"])

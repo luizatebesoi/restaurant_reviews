@@ -97,9 +97,13 @@
         <div class="col col-sm-9 col-9 col-md-9 col-lg-9">
           <p>{{ review.review }}</p>
         </div>
+
         <div class="col col-sm-3 col-3 col-md-3 col-lg-3">
+          {% if review.review_rating > 0 %}
           <p align = "right"><b>Rating: {{ review.review_rating}}/5</b></p>
+          {% endif %}
         </div>
+
       </div>
       <div class="row">
         <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
