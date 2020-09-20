@@ -8,10 +8,10 @@ from csv import DictWriter
 def get_reviews_info(link, search_link, cities):
     reviews_info = []
     for city in cities:
-        response = requests.get(search_link+city[1])
+        response = requests.get(search_link + city[1])
         response.encoding = "utf-8"
         soup_cities = BeautifulSoup(response.text, "lxml")
-        restaurants_list_boxes = soup_cities.find_all(class_ = "vendor-list")
+        restaurants_list_boxes = soup_cities.find_all(class_="vendor-list")
         restaurants = []
         for list in restaurants_list_boxes:
             restaurants1 = list.find_all("a")
@@ -22,7 +22,7 @@ def get_reviews_info(link, search_link, cities):
             minimum_order = delivery_info[0].find("strong").get_text()
             delivery_fee = delivery_info[1].find("strong").get_text()
             restaurant_categories = []
-            categories = restaurant.find(class_ = "vendor-characteristic").find_all("span")
+            categories = restaurant.find(class_="vendor-characteristic").find_all("span")
             for item in categories:
                 restaurant_categories.append(item.get_text().strip())
             categories_str = ', '.join(restaurant_categories)
@@ -31,8 +31,8 @@ def get_reviews_info(link, search_link, cities):
             restaurant_info = requests.get(link + restaurant_page_href + "#restaurant-info")
             restaurant_info.encoding = "utf-8"
             rest_info_soup = BeautifulSoup(restaurant_info.text, "html.parser")
-            if rest_info_soup.find(class_ = "vendor-location") != None:
-                address = rest_info_soup.find(class_ = "vendor-location").get_text().strip()
+            if rest_info_soup.find(class_="vendor-location") != None:
+                address = rest_info_soup.find(class_="vendor-location").get_text().strip()
             else:
                 address = ""
             restaurant_page_response = requests.get(link + restaurant_page_href)
@@ -43,7 +43,8 @@ def get_reviews_info(link, search_link, cities):
             else:
                 reviews_no = None
             if soup.find(class_="ratings-component"):
-                restaurant_rating = soup.find(class_="ratings-component").find(class_="rating").find("strong").get_text().strip()
+                restaurant_rating = soup.find(class_="ratings-component").find(class_="rating").find(
+                    "strong").get_text().strip()
             else:
                 restaurant_rating = None
             if soup.find(class_="vendor-header"):
@@ -53,26 +54,26 @@ def get_reviews_info(link, search_link, cities):
                     rest_image = None
             else:
                 rest_image = None
-            all_reviews = soup.find_all(class_ = "review-component hreview")
+            all_reviews = soup.find_all(class_="review-component hreview")
             if len(all_reviews) > 0:
                 for review in all_reviews:
-                    review_descr = review.find(class_ = "description").get_text().strip()
-                    review_author = review.find(class_ = "reviewer vcard").find(class_ = "fn").get_text().strip()
+                    review_descr = review.find(class_="description").get_text().strip()
+                    review_author = review.find(class_="reviewer vcard").find(class_="fn").get_text().strip()
                     if review.find("strong"):
                         review_rating = review.find("strong").get_text().strip()
                     else:
                         review_rating = None
-                    review_date = review.find(class_ = "review-date dtreviewed").get_text().strip()
-                    reviews_info.append({"name" : name,
-                                         "review" : review_descr,
-                                         "review_date" : review_date,
-                                         "review_rating" : review_rating,
-                                         "restaurant_rating" : restaurant_rating,
-                                         "reviews_no" : reviews_no,
-                                         "city" : city[0],
-                                         "address" : address,
-                                         "author" : review_author,
-                                         "categories" : categories_str,
+                    review_date = review.find(class_="review-date dtreviewed").get_text().strip()
+                    reviews_info.append({"name": name,
+                                         "review": review_descr,
+                                         "review_date": review_date,
+                                         "review_rating": review_rating,
+                                         "restaurant_rating": restaurant_rating,
+                                         "reviews_no": reviews_no,
+                                         "city": city[0],
+                                         "address": address,
+                                         "author": review_author,
+                                         "categories": categories_str,
                                          "source": "foodpanda",
                                          "fp_minimum_order": minimum_order,
                                          "fp_delivery_fee": delivery_fee,
@@ -81,32 +82,35 @@ def get_reviews_info(link, search_link, cities):
 
                                          })
 
-                    print(name, address, review_author, categories_str, minimum_order, delivery_fee, rest_image, city[0], reviews_no, restaurant_rating)
+                    print(name, address, review_author, categories_str, minimum_order, delivery_fee, rest_image,
+                          city[0], reviews_no, restaurant_rating)
             else:
-                reviews_info.append({"name" : name,
-                                     "review" : None,
-                                     "review_date" : None,
-                                     "review_rating" : None,
-                                     "restaurant_rating" : restaurant_rating,
-                                     "reviews_no" : reviews_no,
-                                     "city" : city[0],
-                                     "address" : address,
-                                     "author" : None,
-                                     "categories" : categories_str,
+                reviews_info.append({"name": name,
+                                     "review": None,
+                                     "review_date": None,
+                                     "review_rating": None,
+                                     "restaurant_rating": restaurant_rating,
+                                     "reviews_no": reviews_no,
+                                     "city": city[0],
+                                     "address": address,
+                                     "author": None,
+                                     "categories": categories_str,
                                      "source": "foodpanda",
                                      "fp_minimum_order": minimum_order,
                                      "fp_delivery_fee": delivery_fee,
                                      "fp_restaurant_page_href": restaurant_page_href,
                                      "rest_image": rest_image
 
-                                         })
+                                     })
 
-                print(name, address, categories_str, minimum_order, delivery_fee, rest_image, city[0], reviews_no, restaurant_rating)
+                print(name, address, categories_str, minimum_order, delivery_fee, rest_image, city[0], reviews_no,
+                      restaurant_rating)
     return reviews_info
 
 
 def write_restaurants_info_to_csv(reviews_info):
-    with open(os.path.join(dirname(dirname(__file__)), "media/csv/foodpanda.csv"), "w", encoding = "utf-8", newline = "") as file:
+    with open(os.path.join(dirname(dirname(__file__)), "media/csv/foodpanda.csv"), "w", encoding="utf-8",
+              newline="") as file:
         headers = ["name",
                    "review",
                    "review_date",
@@ -122,7 +126,7 @@ def write_restaurants_info_to_csv(reviews_info):
                    "fp_delivery_fee",
                    "fp_restaurant_page_href",
                    "rest_image"]
-        csv_writer = DictWriter(file, fieldnames= headers)
+        csv_writer = DictWriter(file, fieldnames=headers)
         csv_writer.writeheader()
         for review in reviews_info:
             csv_writer.writerow(review)
@@ -130,7 +134,6 @@ def write_restaurants_info_to_csv(reviews_info):
 
 base_search_url = "https://www.foodpanda.ro/restaurants/"
 base_url = "https://www.foodpanda.ro"
-
 
 cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=restaurants"),
           ("cluj-napoca", "new?lat=46.77028199999999&lng=23.588339&vertical=restaurants"),
@@ -165,3 +168,6 @@ cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=resta
           ("focsani", "new?lat=45.6964529&lng=27.184108&vertical=restaurants"),
           ("sebes", "new?lat=45.9594602&lng=23.5664861&vertical=restaurants")
           )
+
+cities1 = (("focsani", "new?lat=45.6964529&lng=27.184108&vertical=restaurants"),
+           ("sebes", "new?lat=45.9594602&lng=23.5664861&vertical=restaurants"))

@@ -109,6 +109,4 @@ cities = ("bucuresti", "cluj-napoca", "timisoara", "iasi", "brasov",
           "deva", "alba-iulia", "resita", "botosani", "roman", "targu-mures")
 category = "restaurant"
 
-# if __name__ == '__main__':
-#    reviews_info = get_reviews_info(url, cities, category)
-#    write_restaurants_info_to_csv(reviews_info)
+cities1 = ("deva", "roman")
