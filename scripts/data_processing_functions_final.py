@@ -1048,9 +1048,9 @@ def update_data():
 
 
 def initial_download():
-    tazz_reviews = tazz.get_reviews_info(tazz.url, tazz.cities, tazz.category)
+    tazz_reviews = tazz.get_reviews_info(tazz.url, tazz.cities1, tazz.category)
     tazz.write_restaurants_info_to_csv(tazz_reviews)
-    fp_reviews = fp.get_reviews_info(fp.base_url, fp.base_search_url, fp.cities)
+    fp_reviews = fp.get_reviews_info(fp.base_url, fp.base_search_url, fp.cities1)
     fp.write_restaurants_info_to_csv(fp_reviews)
     final_restaurants = final_restaurant_processing("../media/csv/foodpanda.csv", "../media/csv/tazz.csv")
     img.bulk_download(final_restaurants["rest_image"].values, "media/restaurants/images")
