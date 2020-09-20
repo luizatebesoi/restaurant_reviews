@@ -1,6 +1,20 @@
 #!/bin/bash
 cd /srv/tebesoi/restaurants/
 
+# Create media directories if needed
+media_csv_path="/srv/tebesoi/restaurants/media/csv"
+media_images_path="/srv/tebesoi/restaurants/media/restaurants/images"
+if [ ! -d $media_csv_path ]
+then
+  mkdir -p $media_csv_path
+  chmod +x $media_csv_path
+fi
+if [ ! -d $media_images_path ]
+then
+  mkdir -p $media_images_path
+  chmod +x $media_images_path
+fi
+
 # Apply database migrations
 python manage.py makemigrations --noinput
 python3 manage.py migrate auth
