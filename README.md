@@ -12,12 +12,12 @@
 - Using Powershell install django with: “pip install django”
 - Using Powershell, go to Desktop and create a new project with the command: “django-admin startproject restaurant_reviews”. This command creates a new folder on desktop called restaurants_project.  
 - Go to the restaurants_project folder with the:  “cd restaurant_reviews” command
-- Create a django app using: “python manage.py startapp restaurants” 
+- Create a django app using: “python manage.py startapp restaurants”
 - Install libraries
 ```bash
 pip install -r requirements.txt
 ```
-- Start application with 
+- Start application with
 ```bash
 python manage.py runserver
 ```
@@ -47,4 +47,12 @@ python initial_download.py
 ### Cron daily
 ```bash
 python data_update.py
+```
+
+### Creating new application image
+```bash
+git fetch --all --prune --tags
+git tag
+git tag 1.0.0
+git push origin --tags
 ```
