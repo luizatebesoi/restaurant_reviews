@@ -4,6 +4,13 @@
   margin-bottom: 10px;
 }
 
+
+#detail_img{
+  height:500px;
+  width:1200px;
+}
+
+
 .inner-first-row{
   height: 280px;
 }
@@ -63,6 +70,8 @@ select {
 .order_on{
   width:500px;
 }
+
+
 
 .jumbotron-fluid{
   margin-top: 0px;
