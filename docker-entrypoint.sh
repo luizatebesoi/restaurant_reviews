@@ -19,6 +19,7 @@ fi
 python manage.py makemigrations --noinput
 python manage.py migrate auth
 python manage.py migrate --noinput
+python manage.py daguerre clean
 
 # Start server
 python manage.py runserver 0.0.0.0:80
