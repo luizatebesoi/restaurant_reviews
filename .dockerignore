@@ -1,6 +1,5 @@
 .dockerignore
 .gitignore
-!.gitkeep
 Dockerfile
 Jenkinsfile
 README.md
