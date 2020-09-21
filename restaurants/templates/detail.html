@@ -19,7 +19,10 @@
 
   </div>
 
-  <div class="jumbotron" style="margin-bottom: 5px; min-height: 300px; background: url({{ restaurant.img.url }}) no-repeat center center fixed; background-attachment: scroll; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+  <!-- <div class="jumbotron" style="margin-bottom: 5px; min-height: 300px; background: url({{ restaurant.img.url }}) no-repeat center center fixed; background-attachment: scroll; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+  </div> -->
+  <div class="container">
+    <p style="text-align: center;"><img src="{% adjust restaurant.img 'fill' height=300 width=1200 %}" alt=""></p>
   </div>
   <div class="row display-inline-block">
     <div class="col col-sm-6 col-6 col-md-6 col-lg-6">
