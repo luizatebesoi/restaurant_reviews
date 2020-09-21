@@ -170,4 +170,5 @@ cities = (("bucuresti", "new?lat=44.42733610000001&lng=26.1039363&vertical=resta
           )
 
 cities1 = (("focsani", "new?lat=45.6964529&lng=27.184108&vertical=restaurants"),
-           ("sebes", "new?lat=45.9594602&lng=23.5664861&vertical=restaurants"))
+           ("sebes", "new?lat=45.9594602&lng=23.5664861&vertical=restaurants"),
+           ("cluj-napoca", "new?lat=46.77028199999999&lng=23.588339&vertical=restaurants"))

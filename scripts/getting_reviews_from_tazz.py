@@ -109,4 +109,4 @@ cities = ("bucuresti", "cluj-napoca", "timisoara", "iasi", "brasov",
           "deva", "alba-iulia", "resita", "botosani", "roman", "targu-mures")
 category = "restaurant"
 
-cities1 = ("deva", "roman")
+cities1 = ("deva", "roman", "cluj-napoca")

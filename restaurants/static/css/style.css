@@ -5,12 +5,6 @@
 }
 
 
-#detail_img{
-  height:500px;
-  width:1200px;
-}
-
-
 .inner-first-row{
   height: 280px;
 }
@@ -28,6 +22,7 @@
 .inner-fourth_row{
   height: 30 px;
 }
+
 
 .btn{
   min-width:120px;
@@ -61,14 +56,18 @@ select {
 }
 
 #fp-image{
-  width:120px;
-  height:120px;
+  width:60px;
+  height:60px;
   border-radius: 4px;
   margin-bottom: 20px;
 }
 
-.order_on{
-  width:500px;
+
+#tazz-image{
+  width:50px;
+  height:50px;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 
