@@ -24,7 +24,7 @@ def set_keys(start_value, data_length):
     return keys
 
 
-# Group together the restaurants
+# Group together the restaurants by key
 def group_rest(info):
     accumulator = []
     results = []
@@ -35,6 +35,7 @@ def group_rest(info):
     return results
 
 
+# It prepares the image paths that are to be inserted in the db
 def image_titles(links):
     results = []
     for link in links:
@@ -48,6 +49,7 @@ def image_titles(links):
     return results
 
 
+# Capitalizes the city name
 def capitalize_city(x):
     if "-" in x:
         splitted_x = x.split("-")
