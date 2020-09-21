@@ -41,11 +41,13 @@ docker run --rm -it --entrypoint /bin/bash --name restaurant-reviews restaurant-
 
 ### Populate db data
 ```bash
+cd scripts/
 python initial_download.py
 ```
 
 ### Cron daily
 ```bash
+cd scripts/
 python data_update.py
 ```
 
