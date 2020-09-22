@@ -40,7 +40,7 @@ def restaurants(request):
     myFilter = RestaurantFilter(request.GET, queryset=restaurants)
     restaurants = myFilter.qs
     length = len(restaurants)
-    return render(request, "restaurants.html", {"restaurants": restaurants[:200],
+    return render(request, "restaurants.html", {"restaurants": restaurants[:100],
                                                 "myFilter": myFilter,
                                                 "length": length,
                                                 "city": city})
