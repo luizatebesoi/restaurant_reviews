@@ -1,9 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import Restaurant, Review
 from .filters import RestaurantFilter, ReviewFilter, HomeFilter
-from django.views.generic.list import ListView
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def detail(request, rest_id):

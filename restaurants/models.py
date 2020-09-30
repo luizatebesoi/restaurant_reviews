@@ -23,6 +23,7 @@ class Restaurant(models.Model):
     reviews_number = models.IntegerField(null=True)
     reviews_total = models.FloatField(blank=True)
     img = models.ImageField(upload_to='restaurants/images', null=True, max_length=1000)
+    search_name = models.CharField(max_length=1200, null=True)
 
 
 #ImageField(upload_to='restaurants/images', null=True, max_length=1000)

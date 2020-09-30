@@ -42,7 +42,7 @@ def image_titles(links):
         if pd.notna(link):
             filename = link.split("/")[-1]
             file = os.path.join(os.path.join(dirname(dirname(__file__)), "media/restaurants/images/"), filename)
-            file = file.replace("\\","/")
+            file = file.replace("\\", "/")
             results.append(file)
         else:
             results.append(None)
@@ -747,6 +747,20 @@ def gather_minimum_order(initial, comparison):
     return results
 
 
+def search_name(x, special_letters):
+    result = x.lower()
+    char_list = []
+    for char in result:
+        for item in special_letters:
+            if char == item[0]:
+                char_list.append(item[1])
+                break
+        else:
+            char_list.append(char)
+    result = ''.join(char_list)
+    return result
+
+
 def process_rest_csv(csv, *args):
     df = pd.read_csv(csv)
     df["unique_id"] = df["name"] + df["city"] + df["address"] + df["source"]
@@ -933,7 +947,8 @@ def final_restaurant_processing(csv1, csv2, *args):
     final_restaurants = pd.merge(rest_info_df, grouped_by_key_rest, on="rest_key")
     final_restaurants["img"] = image_titles(final_restaurants["rest_image"].values)
     final_restaurants["city"] = final_restaurants["city"].apply(capitalize_city)
-
+    final_restaurants["search_name"] = final_restaurants["name"].apply(lambda x: search_name(x, special_letters_tuple))
+    final_restaurants["search_name"] = final_restaurants["search_name"] + "," + final_restaurants["name"]
     final_restaurants["rest_key"] = set_keys(1, len(final_restaurants))
 
     return final_restaurants
@@ -992,7 +1007,7 @@ def bulk_insert_into_restaurants_table(data):
         "dbname = 'restaurants' user = 'postgres' password = 'postgrespass' host = 'localhost' port = '5432'")
     c = conn.cursor()
     c.executemany(
-        "INSERT INTO restaurants_restaurant VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+        "INSERT INTO restaurants_restaurant VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
         tuple(data))
     conn.commit()
     conn.close()
